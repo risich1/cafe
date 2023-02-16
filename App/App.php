@@ -47,8 +47,8 @@ class App {
             $date2 = date('Y-m-d', $body['date2']);
 
             $query = "
-                select c.* from cooks c left join orders_dishes od on od.dish_id IN (SELECT d.id FROM dishes d WHERE d.cook_id = c.id)
-                join orders o on o.id = od.order_id and o.created_date < '$date2' AND o.created_date > '$date1' and status = 'success'
+                select c.* from cooks c join orders_dishes od on od.dish_id IN (SELECT d.id FROM dishes d WHERE d.cook_id = c.id)
+                join orders o on o.id = od.order_id and o.created_date <= '$date2' AND o.created_date >= '$date1' and status = 'success'
                 GROUP BY c.id ORDER BY (COUNT(od.dish_id)) DESC;
             ";
 
